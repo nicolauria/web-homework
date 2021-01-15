@@ -103,9 +103,10 @@ module.exports = function main (options, cb) {
     if (err.status >= 500) {
       logger.error(err)
     }
-    res.locals.name = 'divvy-react-challenge'
-    res.locals.error = err
-    res.status(err.status || 500).render('error')
+    // res.locals.name = 'divvy-react-challenge'
+    // res.locals.error = err
+    // res.status(err.status || 500).render('error')
+    next(httpErrors(err.status))
   })
 
   // Start server

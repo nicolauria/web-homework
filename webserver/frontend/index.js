@@ -1,8 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ApolloProvider } from 'react-apollo';
+import client from './apollo';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Home from './components/pages/Home';
+import TransactionViewer from './components/pages/TransactionViewer';
 
-const HelloComponent = () => {
-    return <h1>Hello World!</h1>
+const App = () => {
+    return (
+        <BrowserRouter>
+            <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/transactions" component={TransactionViewer} />
+            </Switch>
+        </BrowserRouter>
+    )
 };
 
-ReactDOM.render(<HelloComponent />, document.getElementById('root'));
+ReactDOM.render(
+    <ApolloProvider client={client}>
+        <App />
+    </ApolloProvider>, 
+    document.getElementById('root')
+);
