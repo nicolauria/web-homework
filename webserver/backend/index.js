@@ -1,7 +1,7 @@
 'use strict'
 require('dotenv').config();
 const cors = require('cors')
-const ejs = require('ejs')
+// const ejs = require('ejs')
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
@@ -62,12 +62,12 @@ module.exports = function main (options, cb) {
   // Create the express app
   const app = express()
 
-  app.use(express.static(path.join(__dirname, 'public')))
+  app.use(express.static(path.join(__dirname, '../frontend')))
 
   // Template engine
-  app.engine('html', ejs.renderFile)
-  app.set('views', path.join(__dirname, 'public'))
-  app.set('view engine', 'html')
+  // app.engine('html', ejs.renderFile)
+  // app.set('views', path.join(__dirname, 'public'))
+  // app.set('view engine', 'html')
 
   // Common middleware
   // app.use(/* ... */)
