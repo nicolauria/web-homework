@@ -1,4 +1,5 @@
 'use strict'
+require('dotenv').config();
 const cors = require('cors')
 const ejs = require('ejs')
 const express = require('express')
@@ -27,10 +28,10 @@ module.exports = function main (options, cb) {
   let serverStarted = false
   let serverClosing = false
 
-  const MONGO_URI = 'mongodb://localhost:27017/graphql'
+  // const MONGO_URI = 'mongodb://localhost:27017/graphql'
 
   mongoose.Promise = global.Promise
-  mongoose.connect(MONGO_URI, {
+  mongoose.connect(process.env.MONGODB_URL, {
     useNewUrlParser: true
   })
 
