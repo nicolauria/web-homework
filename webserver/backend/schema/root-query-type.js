@@ -32,6 +32,7 @@ const RootQuery = new GraphQLObjectType({
         user_id: { type: GraphQLString }
       },
       resolve (parentValue, args) {
+        console.log(`args: ${JSON.stringify(args)}`)
         return Transactions.find(args)
       }
     }

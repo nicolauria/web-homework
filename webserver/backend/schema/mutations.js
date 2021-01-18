@@ -106,6 +106,10 @@ const mutation = new GraphQLObjectType({
       },
       /* eslint-disable-next-line camelcase */
       resolve (parentValue, { user_id, description, merchant_id, debit, credit, amount }) {
+        console.log(`amount: ${amount}`)
+        if (!amount || !description || (!credit && !debit)) {
+          throw new Error('Not all fields have been entered.')
+        }
         return (new TransactionModel({ user_id, description, merchant_id, debit, credit, amount })).save()
       }
     }

@@ -46,21 +46,21 @@ export default function Register(props) {
     }
 
     return (
-        <div style={{ marginTop: '150px' }}>
+        <div style={{ marginTop: '100px' }}>
             <h1>Register</h1>
             {error && <ErrorNotice message={error} clearError={() => setError(undefined)} />}
             <form onSubmit={submit}>
                 <div className="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
+                    <label>Email address</label>
                     <input type="email" className="form-control" onChange={ e => setEmail(e.target.value)} aria-describedby="emailHelp" placeholder="Enter email" />
                     <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
                 <div className="form-group">
-                    <label for="exampleInputPassword1">Password</label>
+                    <label>Password</label>
                     <input type="password" className="form-control" onChange={ e => setPassword(e.target.value)} placeholder="Password" />
                 </div>
                 <div className="form-group">
-                    <label for="exampleInputPassword1">Confirm Password</label>
+                    <label>Confirm Password</label>
                     <input type="password" className="form-control" onChange={ e => setConfirm(e.target.value)} placeholder="Password" />
                 </div>
                 <input type="submit" className="btn btn-primary" value="Submit" />

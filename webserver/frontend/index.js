@@ -8,9 +8,11 @@ import Home from './components/pages/Home';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import TransactionViewer from './components/pages/TransactionViewer';
+import AddTransaction from './components/pages/AddTransaction';
 import 'bootstrap/dist/css/bootstrap.css';
 import UserContext from './context/UserContext';
 import axios from 'axios';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 import 'regenerator-runtime/runtime'
 
 function App() {
@@ -51,7 +53,8 @@ function App() {
                     <Route exact path="/" component={Home} />
                     <Route path="/register" component={Register} />
                     <Route path="/login" component={Login} />
-                    <Route path="/transactions" component={TransactionViewer} />
+                    <ProtectedRoute path="/transactions" component={TransactionViewer} />
+                    <ProtectedRoute path="/addTransaction" component={AddTransaction} />
                 </Switch>
             </UserContext.Provider>
         </div>
