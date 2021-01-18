@@ -1,6 +1,6 @@
 import React from 'react';
 import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
+import { useQuery } from '@apollo/react-hooks';
 import { Table } from 'reactstrap';
 
 export const GET_TRANSACTIONS = gql`
@@ -12,9 +12,12 @@ query {
 }
 `;
 
-export default () => (
-    <Query query={GET_TRANSACTIONS}>
-      {({ loading, data }) => !loading && (
+export default function TransactionViewer() {
+  const { loading, error, data } = useQuery(GET_TRANSACTIONS);
+
+    return (
+      <>
+      {console.log(data)}
         <Table>
           <thead>
             <tr>
@@ -23,7 +26,7 @@ export default () => (
             </tr>
           </thead>
           <tbody>
-            {data.transactions.map(transaction => (
+            {!loading && data.transactions.map(transaction => (
               <tr key={transaction.id}>
                 <td>{transaction.amount}</td>
                 <td>{transaction.amount}</td>
@@ -31,6 +34,6 @@ export default () => (
             ))}
           </tbody>
         </Table>
-      )}
-    </Query>
-  );
+      </>
+    )
+}
