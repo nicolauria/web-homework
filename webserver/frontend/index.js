@@ -6,6 +6,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './components/pages/Home';
 import Register from './components/auth/Register';
+import Login from './components/auth/Login';
 import TransactionViewer from './components/pages/TransactionViewer';
 import 'bootstrap/dist/css/bootstrap.css';
 import UserContext from './context/UserContext';
@@ -49,6 +50,7 @@ function App() {
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route path="/register" component={Register} />
+                    <Route path="/login" component={Login} />
                     <Route path="/transactions" component={TransactionViewer} />
                 </Switch>
             </UserContext.Provider>

@@ -1,9 +1,11 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
 import UserContext from '../context/UserContext';
+import { useHistory } from 'react-router-dom';
 
 export default function Header() {
     const { userData, setUserData } = useContext(UserContext);
+    const history = useHistory();
 
     const logout = () => {
         setUserData({
@@ -11,6 +13,7 @@ export default function Header() {
             user: undefined
         })
         localStorage.setItem("auth-token", "");
+        history.push("/");
     }
 
     return (
@@ -22,7 +25,7 @@ export default function Header() {
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
                 <li className="nav-item active">
-                    <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                    <Link className="nav-link" path="/">Home</Link>
                 </li>
                 {
                     userData.user ? 

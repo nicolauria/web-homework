@@ -61,18 +61,39 @@ const mutation = new GraphQLObjectType({
         }
       }
     },
-    // addUser: {
-    //   type: UserType,
-    //   args: {
-    //     email: { type: GraphQLString },
-    //     password: { type: GraphQLString },
-    //   },
-    //   async resolve (parentValue, { email, password }) {
-    //     if (!email || !password) {
-    //       throw new Error('email and password are required to log in')
-    //     }
-    //   }
-    // },
+    login: {
+      type: UserType,
+      args: {
+        email: { type: GraphQLString },
+        password: { type: GraphQLString },
+      },
+      async resolve (parentValue, { email, password }) {
+        if (!email || !password) {
+          throw new Error('email and password are required to log in')
+        }
+
+        const existingUser = await UserModel.findOne({ email });
+
+        if (!existingUser) {
+          throw new Error('No user with that email');
+        }
+
+        const isMatch = await bcrypt.compare(password, existingUser.password);
+        if (!isMatch) {
+          throw new Error('Incorrect password.');
+        }
+
+        const token = jwt.sign({
+          id: existingUser._id,
+          email: existingUser.email
+        }, process.env.JWT_SECRET, { expiresIn: '1h'})
+
+        return {
+          id: existingUser._id,
+          token
+        }
+      }
+    },
     addTransaction: {
       type: TransactionType,
       args: {
