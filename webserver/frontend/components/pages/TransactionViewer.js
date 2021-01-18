@@ -21,7 +21,8 @@ export default function TransactionViewer() {
   const { userData } = useContext(UserContext);
   
   const { loading, error, data } = useQuery(GET_TRANSACTIONS, {
-    variables: { user_id: userData.user.id }
+    variables: { user_id: userData.user.id },
+    pollInterval: 500
   });
 
     return (
