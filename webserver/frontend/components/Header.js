@@ -1,7 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
+import UserContext from '../context/UserContext';
 
 export default function Header() {
+    const { userData, setUserData } = useContext(UserContext);
+
+    const logout = () => {
+        setUserData({
+            token: undefined,
+            user: undefined
+        })
+        localStorage.setItem("auth-token", "");
+    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <a className="navbar-brand" href="#">Navbar</a>
@@ -13,15 +24,18 @@ export default function Header() {
                 <li className="nav-item active">
                     <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
                 </li>
-                <li className="nav-item">
+                {
+                    userData.user ? 
+                    <button onClick={logout}>Log out</button> :
+                    <>
+                    <li className="nav-item">
+                    <Link className="nav-link" to="/login">Login</Link>
+                    </li>
+                    <li className="nav-item">
                     <Link className="nav-link" to="/register">Register</Link>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link" href="#">Pricing</a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link disabled" href="#">Disabled</a>
-                </li>
+                    </li>
+                    </>
+                }
                 </ul>
             </div>
         </nav>

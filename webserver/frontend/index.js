@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from '@apollo/react-hooks';
 import client from './apollo';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Header from './components/Header';
@@ -8,25 +8,59 @@ import Home from './components/pages/Home';
 import Register from './components/auth/Register';
 import TransactionViewer from './components/pages/TransactionViewer';
 import 'bootstrap/dist/css/bootstrap.css';
+import UserContext from './context/UserContext';
+import axios from 'axios';
+import 'regenerator-runtime/runtime'
 
-const App = () => {
+function App() {
+    const [userData, setUserData] = useState({
+        token: undefined,
+        user: undefined
+    });
+
+    useEffect(() => {
+        const checkLoggedIn = async () => {
+          let token = localStorage.getItem("auth-token");
+          if (token === null) {
+            localStorage.setItem("auth-token", "");
+            token = "";
+          }
+          const tokenRes = await axios.post("http://localhost:8000/tokenIsValid", null, {
+            headers: {
+              "x-auth-token": token
+            }
+          })
+          
+          if (tokenRes.data) {
+            setUserData({
+              token,
+              user: tokenRes.data
+            })
+          }
+        }
+    
+        checkLoggedIn();
+    }, []);
+
     return (
         <div className="container">
-            <BrowserRouter>
+            <UserContext.Provider value={{ userData, setUserData }}>
                 <Header />
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route path="/register" component={Register} />
                     <Route path="/transactions" component={TransactionViewer} />
                 </Switch>
-            </BrowserRouter>
+            </UserContext.Provider>
         </div>
     )
 };
 
 ReactDOM.render(
-    <ApolloProvider client={client}>
-        <App />
-    </ApolloProvider>, 
+    <BrowserRouter>
+        <ApolloProvider client={client}>
+            <App />
+        </ApolloProvider>
+    </BrowserRouter>, 
     document.getElementById('root')
 );

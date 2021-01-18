@@ -23,6 +23,10 @@ const mutation = new GraphQLObjectType({
       },
       /* eslint-disable-next-line camelcase */
       async resolve (parentValue, { email, password, confirm, dob, firstName, lastName }) {
+        if (!email || !password || !confirm) {
+          throw new Error('email, password and confirm must all be filled in')
+        }
+
         const existingUser = await UserModel.findOne({ email });
 
         if (existingUser) {
@@ -46,7 +50,7 @@ const mutation = new GraphQLObjectType({
         const res = await user.save();
         
         const token = jwt.sign({
-          id: res.id,
+          id: res._id,
           email: res.email
         }, process.env.JWT_SECRET, { expiresIn: '1h'})
 
@@ -57,6 +61,18 @@ const mutation = new GraphQLObjectType({
         }
       }
     },
+    // addUser: {
+    //   type: UserType,
+    //   args: {
+    //     email: { type: GraphQLString },
+    //     password: { type: GraphQLString },
+    //   },
+    //   async resolve (parentValue, { email, password }) {
+    //     if (!email || !password) {
+    //       throw new Error('email and password are required to log in')
+    //     }
+    //   }
+    // },
     addTransaction: {
       type: TransactionType,
       args: {
