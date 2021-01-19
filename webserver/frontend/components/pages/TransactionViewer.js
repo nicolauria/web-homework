@@ -13,6 +13,7 @@ export const GET_TRANSACTIONS = gql`
       credit
       debit
       description
+      date
     }
   }
 `;
@@ -31,6 +32,7 @@ export default function TransactionViewer() {
         <Table>
           <thead>
             <tr>
+              <th>Date</th>
               <th>Amount</th>
               <th>Credit</th>
               <th>Debit</th>
@@ -40,6 +42,8 @@ export default function TransactionViewer() {
           <tbody>
             {!loading && data.transactions.map(transaction => (
               <tr key={transaction.id}>
+                {console.log(transaction.date)}
+                <td>{transaction.date}</td>
                 <td>{transaction.amount}</td>
                 <td>{transaction.credit ? 'true' : 'false'}</td>
                 <td>{transaction.debit ? 'true' : 'false'}</td>

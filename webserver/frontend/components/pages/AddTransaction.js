@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 import ErrorNotice from '../misc/ErrorNotice';
 
 export default function AddTransaction() {
+    // const [date, setDate] = useState(new Date());
     const [amount, setAmount] = useState(0);
     const [credit, setCredit] = useState(true);
     const [debit, setDebit] = useState(false);
@@ -35,6 +36,7 @@ export default function AddTransaction() {
         e.preventDefault();
         addTransaction({
             variables: {
+                date: new Date(),
                 user_id: userData.user.id,
                 amount: parseFloat(amount),
                 credit,
@@ -64,6 +66,9 @@ export default function AddTransaction() {
                     <label>Description</label>
                     <input type="text" className="form-control" onChange={ e => setDescription(e.target.value)} placeholder="Description" />
                 </div>
+                {/* <div className="form-group">
+                    <input type="date" selected={date} onChange={date => setDate(date)} placeholder="Date" />
+                </div> */}
                 <input type="submit" className="btn btn-primary" value="Submit" />
             </form>
         </div>
@@ -77,6 +82,7 @@ const ADD_TRANSACTION = gql`
     $credit: Boolean!
     $debit: Boolean!
     $description: String!
+    $date: String!
   ) {
     addTransaction(
         user_id: $user_id
@@ -84,12 +90,14 @@ const ADD_TRANSACTION = gql`
         credit: $credit
         debit: $debit,
         description: $description
+        date: $date
     ) {
       user_id
       amount
       credit
       debit
       description
+      date
     }
   }
 `;
