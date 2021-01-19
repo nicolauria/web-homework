@@ -9,6 +9,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import TransactionViewer from './components/pages/TransactionViewer';
 import AddTransaction from './components/pages/AddTransaction';
+import EditTransaction from './components/pages/EditTransaction';
 import 'bootstrap/dist/css/bootstrap.css';
 import UserContext from './context/UserContext';
 import axios from 'axios';
@@ -53,8 +54,9 @@ function App() {
                     <Route exact path="/" component={Home} />
                     <Route path="/register" component={Register} />
                     <Route path="/login" component={Login} />
-                    <ProtectedRoute path="/transactions" component={TransactionViewer} />
+                    <ProtectedRoute exact path="/transactions" component={TransactionViewer} />
                     <ProtectedRoute path="/addTransaction" component={AddTransaction} />
+                    <Route path="/transactions/:id" component={EditTransaction}/>
                 </Switch>
             </UserContext.Provider>
         </div>

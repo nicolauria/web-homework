@@ -42,12 +42,12 @@ export default function TransactionViewer() {
           <tbody>
             {!loading && data.transactions.map(transaction => (
               <tr key={transaction.id}>
-                {console.log(transaction.date)}
                 <td>{transaction.date}</td>
                 <td>{transaction.amount}</td>
                 <td>{transaction.credit ? 'true' : 'false'}</td>
                 <td>{transaction.debit ? 'true' : 'false'}</td>
                 <td>{transaction.description}</td>
+                <td><Link to={`/transactions/${transaction.id}`}>Edit</Link></td>
               </tr>
             ))}
           </tbody>

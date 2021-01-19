@@ -113,6 +113,26 @@ const mutation = new GraphQLObjectType({
         }
         return (new TransactionModel({ user_id, description, merchant_id, debit, credit, amount, date })).save()
       }
+    },
+    editTransaction: {
+      type: TransactionType,
+      args: {
+        id: { type: GraphQLString },
+        user_id: { type: GraphQLString },
+        description: { type: GraphQLString },
+        merchant_id: { type: GraphQLString },
+        debit: { type: GraphQLBoolean },
+        credit: { type: GraphQLBoolean },
+        amount: { type: GraphQLFloat },
+        date: { type: GraphQLString }
+      },
+      resolve (parentVale, { id, user_id, description, merchant_id, debit, credit, amount, date }) {
+        if (!amount || !description || (!credit && !debit)) {
+          throw new Error('Not all fields have been entered.')
+        }
+        
+        return TransactionModel.updateOne({_id: id}, { user_id, description, merchant_id, debit, credit, amount, date })
+      }
     }
   }
 })
