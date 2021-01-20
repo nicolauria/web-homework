@@ -1,30 +1,27 @@
 # Divvy Homework Assignment
 
-This repository provides a starting point for a basic React + GraphQL application.
-All of the configuration boilerplate is complete so you can start by writing the code that you want us to see.
+I developed a simple crud application. All of my work can be viewed in the webserver directory. I used this application starter code as I am most familiar with Express and MongoDB.
 
-Please **fork** this repo to your GitHub account.
+## Challenges
 
+I am new to GraphQL so this proved to be the most difficult part of the assignment. Using documentation and some online tutorials I was able to figure how to use the Apollo library to provide a client to my express application for GraphQL queries and resolvers.
 
-## Project Setup
+## React
 
-This repository is split into a web app directory (eg `/webapp`) and two server directories (eg `/webserver` and `/elixir`).
+I did not use create-react-app. The React application was created from scratch and all configurations including webpack were writtent from scratch as well.
 
-The `/webserver` one includes a functional GraphQL server in NodeJS with MongoDB backing it.
+## Features
 
-The `/elixir` one includes a functional GraphQL server in Elixir with Postgresql backing it.
+The application has a full user authentication system using bcryptjs and jsonwebtoken. A user can register and log in using the app. There are form validations. Try submitting a form without filling in the required fields. You can also try submitting an incorrect password or username.
 
-If you are applying for backend, you should use the elixir code.
-If you are applying for frontend, feel free to use either.
+Transactions can only be viewed and created/edited by a user who is logged in. Transactions are specific to that user. Each user will view their own transactions.
 
-This project is intentionally not utilizing 3rd party services or create-react-app to give you the opportunity to showcase your talents wherever they are, be it the front end or the back end.
+## env file
 
-**Node** version **12** is the safest NodeJS release to use.  You can try version 14, but there can be node-gyp/python issues on OSX.
+Please add the env file to the webserver/backend directory. This provides the MONGODB_URL environment variable as the application uses MONGODB_ATLAS and not a local version of MONGODB. There is already one user created that can be used for testing purposes: (username: user@email.com, password: password)
 
-## Instructions
+## Bugs
 
-See the [frontend instructions](frontend.md) for frontend focused instructions.
-
-See the [backend instructions](backend.md) for backend focused instructions.
+Refreshing the homepage (localhost:8000) works just fine however refreshing the page on any of the other routes results in an error. I believe this is due to using react-router-dom in conjunction with Apollo provider. I am still working on this bug. The application does however function correctly when the links are clicked and used as expected.
 
 
