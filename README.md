@@ -24,4 +24,7 @@ Please add the env file to the webserver/backend directory. This provides the MO
 
 Refreshing the homepage (localhost:8000) works just fine however refreshing the page on any of the other routes results in an error. I believe this is due to using react-router-dom in conjunction with Apollo provider. I am still working on this bug. The application does however function correctly when the links are clicked and used as expected.
 
+## Run the app
+
+After adding the .env file to 'webserver/backend' cd into 'webserver/backend' and run 'npm install'. Then cd into 'webserver/frontend' and run 'npm install'. To start the app cd into 'webserver/backend' and run 'node bin/app'.
 
